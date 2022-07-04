@@ -1,4 +1,4 @@
 ### debilux
 
 ### Official website: 
-bit.ly/debilux
+https://bit.ly/debilux
