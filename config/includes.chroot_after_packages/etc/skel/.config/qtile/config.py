@@ -8,7 +8,7 @@ from libqtile.lazy import lazy
 # Apps
 mod = "mod4"
 terminal = "kitty"
-browser = "links2 -g"
+browser = "brave-browser"
 menu = "dmenu_run -l 20 -p Run: "
 forcequit = "xkill"
 volume = "kitty -e alsamixer"

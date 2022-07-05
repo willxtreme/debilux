@@ -6,7 +6,7 @@
 GRUB_DEFAULT=0
 GRUB_TIMEOUT=5
 GRUB_DISTRIBUTOR="Debilux"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet loglevel=0"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash loglevel=0"
 GRUB_CMDLINE_LINUX=""
 
 # Uncomment to enable BadRAM filtering, modify to suit your needs

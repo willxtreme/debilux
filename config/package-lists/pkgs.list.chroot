@@ -1,6 +1,5 @@
 xorg
 lightdm
-user-setup
 sudo
 feh
 neofetch
@@ -17,9 +16,8 @@ alsa-utils
 ranger
 bash-completion
 htop
-links2
 brightnessctl
 imagemagick
-brightness-udev
 zstd
-fonts-powerline
+apt-transport-https
+curl
