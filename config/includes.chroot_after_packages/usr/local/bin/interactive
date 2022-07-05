@@ -1,6 +1,0 @@
-#!/bin/bash
-pip install qtile
-rm /usr/share/xsessions/lightdm-xsession.desktop
-#plymouth-set-default-theme -R tribar
-fc-cache -f -v
-rm /usr/local/bin/interactive

@@ -14,7 +14,7 @@ lb config \
 --debian-installer-gui 'false' \
 --distribution 'bullseye' \
 --image-name 'debilux-2022.07.04' \
---interactive 'true' \
+--interactive 'false' \
 --iso-application 'debilux' \
 --iso-preparer 'willxtreme-https://sourceforge.net/projects/debilux/' \
 --iso-publisher 'willxtreme-https://sourceforge.net/projects/debilux/' \
@@ -24,6 +24,6 @@ lb config \
 --system 'live' \
 --updates 'true' \
 --win32-loader 'false' \
---zsync 'false' \
+--zsync 'false'
 
 sudo lb build

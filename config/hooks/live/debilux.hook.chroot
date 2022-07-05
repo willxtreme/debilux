@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -e
+
+# install qtile
+pip install qtile
+
+# remove default lightdm xsession entry
+rm /usr/share/xsessions/lightdm-xsession.desktop
+
+# update cache for JetBrains font
+fc-cache -f -v
