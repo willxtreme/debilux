@@ -13,7 +13,7 @@ lb config \
 --debian-installer-distribution 'bullseye' \
 --debian-installer-gui 'false' \
 --distribution 'bullseye' \
---image-name 'debilux-2022.07.04' \
+--image-name 'debilux-2022.07.05' \
 --interactive 'false' \
 --iso-application 'debilux' \
 --iso-preparer 'willxtreme-https://sourceforge.net/projects/debilux/' \

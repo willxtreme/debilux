@@ -1,7 +1,7 @@
-PRETTY_NAME="Debilux GNU/Linux 2022.07.04 (ignition)"
+PRETTY_NAME="Debilux GNU/Linux 2022.07.05 (ignition)"
 NAME="debilux"
-VERSION_ID="2022.07.04"
-VERSION="2022.07.04"
+VERSION_ID="2022.07.05"
+VERSION="2022.07.05"
 VERSION_CODENAME=ignition
 ID=debilux
 HOME_URL="bit.ly/debilux"
