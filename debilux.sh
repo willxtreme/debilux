@@ -4,7 +4,7 @@ sudo lb clean
 lb config \
 --apt-recommends 'false' \
 --archive-areas 'main contrib non-free' \
---bootappend-live 'boot=live components quiet username=live hostname=debilux' \
+--bootappend-live 'boot=live components quiet loglevel=0 username=live hostname=debilux' \
 --bootappend-live-failsafe 'boot=live components noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=788 username=live hostname=debilux' \
 --chroot-squashfs-compression-type 'zstd' \
 --clean \

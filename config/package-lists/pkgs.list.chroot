@@ -22,3 +22,4 @@ brightnessctl
 imagemagick
 brightness-udev
 zstd
+fonts-powerline
