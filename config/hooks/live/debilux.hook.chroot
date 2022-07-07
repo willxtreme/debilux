@@ -1,9 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
 # install qtile
-pip install qtile
+mkdir -p /opt/qtile
+python3 -m venv --system-site-packages /opt/qtile
+source /opt/qtile/bin/activate
+/opt/qtile/bin/pip install qtile
+deactivate
+ln -s /opt/qtile/bin/qtile /usr/local/bin/qtile
 
 # remove default lightdm xsession entry
 rm /usr/share/xsessions/lightdm-xsession.desktop
