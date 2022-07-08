@@ -29,4 +29,6 @@ MiscShowUnsafePasteDialog=TRUE
 FontName=Monospace 16
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
 ShortcutsNoMenukey=TRUE
+ScrollingOnOutput=FALSE
+ScrollingUnlimited=TRUE
 

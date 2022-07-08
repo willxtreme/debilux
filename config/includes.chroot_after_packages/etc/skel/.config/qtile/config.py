@@ -2,6 +2,7 @@
 import os
 import subprocess
 from libqtile import bar, layout, widget, hook
+from libqtile import qtile
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 
@@ -117,6 +118,7 @@ screens = [
                     foreground=fg,
                     padding=0,
                     fontsize=20,
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("xfce4-appfinder")}
                 ),
                 widget.Sep(
                     foreground=gray,
