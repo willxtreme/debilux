@@ -7,13 +7,15 @@ from libqtile.lazy import lazy
 
 # Apps
 mod = "mod4"
-terminal = "kitty"
+terminal = "xfce4-terminal"
 browser = "brave-browser"
 menu = "dmenu_run -l 20 -p Run: "
 forcequit = "xkill"
-volume = "kitty -e alsamixer"
-network = "kitty -e nmtui"
-filemanager = "kitty -e ranger"
+volume = "xfce4-terminal -e alsamixer"
+network = "xfce4-terminal -e nmtui"
+filemanager = "pcmanfm"
+editor = "geany"
+mediaplayer = "vlc"
 
 # Colors
 bg = "#1E1D2F"
@@ -34,6 +36,8 @@ keys = [
     Key([mod], "v", lazy.spawn(volume)),
     Key([mod], "n", lazy.spawn(network)),
     Key([mod], "e", lazy.spawn(filemanager)),
+    Key([mod], "t", lazy.spawn(editor)),
+    Key([mod], "m", lazy.spawn(mediaplayer)),
     Key([mod], "f", lazy.window.toggle_floating()),
     Key([mod], "h", lazy.layout.left()),
     Key([mod], "l", lazy.layout.right()),
