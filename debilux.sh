@@ -9,9 +9,7 @@ lb config \
 --chroot-squashfs-compression-type 'zstd' \
 --clean \
 --color \
---debian-installer 'live' \
---debian-installer-distribution 'bullseye' \
---debian-installer-gui 'false' \
+--debian-installer 'none' \
 --distribution 'bullseye' \
 --image-name 'debilux-2022.07.07' \
 --interactive 'false' \
