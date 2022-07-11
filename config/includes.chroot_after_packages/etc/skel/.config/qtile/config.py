@@ -62,8 +62,8 @@ keys = [
 ]
 
 # Groups
-groups = [Group(i) for i in ["", "", "", "", ""]]
-group_hotkeys = "12345"
+groups = [Group(i) for i in ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]]
+group_hotkeys = "1234567890"
 for i, k in zip(groups, group_hotkeys):
     keys.extend(
         [

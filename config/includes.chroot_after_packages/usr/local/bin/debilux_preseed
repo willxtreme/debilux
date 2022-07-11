@@ -1,6 +1,0 @@
-#!/bin/bash
-rm -f /etc/default/grub
-mv /etc/default/grub.good /etc/default/grub
-rm -f /etc/lightdm/lightdm.conf
-mv /etc/lightdm/lightdm.conf.good /etc/lightdm/lightdm.conf
-update-grub2

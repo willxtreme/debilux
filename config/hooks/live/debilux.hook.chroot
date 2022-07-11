@@ -28,5 +28,5 @@ apt install -y linux-xanmod-edge
 # update cache for JetBrains font
 fc-cache -f -v
 
-#set plymouth default theme to tribar
-plymouth-set-default-theme -R tribar
+#set plymouth default theme to moonlight
+plymouth-set-default-theme -R moonlight
