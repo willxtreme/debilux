@@ -8,14 +8,13 @@ from libqtile.lazy import lazy
 
 # Apps
 mod = "mod4"
-terminal = "xfce4-terminal"
+terminal = "alacritty"
 browser = "brave-browser"
-menu = "dmenu_run -l 20 -p Run: "
 forcequit = "xkill"
-volume = "xfce4-terminal -e alsamixer"
-network = "xfce4-terminal -e nmtui"
+volume = "alacritty -e alsamixer"
+network = "alacritty -e nmtui"
 filemanager = "pcmanfm"
-editor = "geany"
+editor = "mousepad"
 mediaplayer = "vlc"
 
 # Colors
@@ -32,7 +31,7 @@ yellow = "#FAE3B0"
 keys = [
     Key([mod], "Return", lazy.spawn(terminal)),
     Key([mod], "w", lazy.spawn(browser)),
-    Key([mod], "d", lazy.spawn(menu)),
+    Key([mod], "r", lazy.spawncmd()),
     Key([mod], "q", lazy.spawn(forcequit)),
     Key([mod], "v", lazy.spawn(volume)),
     Key([mod], "n", lazy.spawn(network)),
@@ -156,6 +155,7 @@ screens = [
                 ),
                 widget.WindowName(foreground=fg),
                 widget.Spacer(length=100),
+                widget.Prompt(),
                 widget.Systray(icon_size=24),
                 widget.Sep(
                     foreground=gray,
