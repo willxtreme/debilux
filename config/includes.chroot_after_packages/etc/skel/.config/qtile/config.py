@@ -12,7 +12,6 @@ terminal = "alacritty"
 browser = "brave-browser"
 forcequit = "xkill"
 volume = "alacritty -e alsamixer"
-network = "alacritty -e nmtui"
 filemanager = "pcmanfm"
 editor = "mousepad"
 mediaplayer = "vlc"
@@ -34,7 +33,6 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
     Key([mod], "q", lazy.spawn(forcequit)),
     Key([mod], "v", lazy.spawn(volume)),
-    Key([mod], "n", lazy.spawn(network)),
     Key([mod], "e", lazy.spawn(filemanager)),
     Key([mod], "t", lazy.spawn(editor)),
     Key([mod], "m", lazy.spawn(mediaplayer)),

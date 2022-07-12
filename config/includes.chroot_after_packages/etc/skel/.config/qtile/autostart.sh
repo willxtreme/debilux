@@ -1,4 +1,4 @@
 #!/bin/sh
-feh --bg-scale /usr/share/backgrounds/wow.jpg &
+feh --bg-scale /usr/share/backgrounds/flower.jpg &
 picom &
 lxpolkit &
