@@ -30,3 +30,5 @@ calamares
 calamares-settings-debian
 mlocate
 fonts-takao-mincho
+lsb-release
+fonts-noto-color-emoji
