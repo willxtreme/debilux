@@ -1,0 +1,81 @@
+# This is a program written by TriVoxel (https://trivoxel.page.link/site)
+
+.pacman() {
+local sourcesdir="/etc/apt/sources.list.d"
+local cur prev words cword
+_init_completion || return
+
+# See if the user selected a command already
+local COMMANDS=(
+  "-h" "--help"
+  "-V" "--version"
+  # Sync commands
+  "-S" "--sync"
+  # Remove commands
+  "-R" "--remove" "-Ru" "-Rns"
+  # Update commands
+  "-Sy" "-Syy"
+  # Upgrade commands
+  "-Syyu" "-Syu" "-upgrade"
+  # Search
+  "-Ss")
+
+local command i
+for (( i=0; i < ${#words[@]}-1; i++ )); do
+  if [[ ${COMMANDS[@]} =~ ${words[i]} ]]; then
+    command=${words[i]}
+    break
+  fi
+done
+
+# Supported options per command
+if [[ "$cur" == -* ]]; then
+  case $command in
+    -H|-h|--help)
+      COMPREPLY=( $( compgen -W '--help -h
+        -V --version
+        -S --sync
+        -R --remove -Ru -Rns
+        -Sy --update
+        -U -Syu --upgrade
+        -Ss' -- "$cur" ) )
+      return 0
+      ;;
+  esac
+fi
+
+# Specific command arguments
+if [[ -n $command ]]; then
+  case $command in
+    -R|-Rns|-Ru|--remove)
+      if [[ -f /etc/debian_version ]]; then
+        # Debian system
+        COMPREPLY=( $( \
+          _xfunc dpkg _comp_dpkg_installed_packages $cur ) )
+      else
+        # Assume RPM based
+        _xfunc rpm _rpm_installed_packages
+      fi
+      return 0
+      ;;
+    -S|--sync)
+      COMPREPLY=( $( apt-cache --no-generate pkgnames "$cur" \
+        2> /dev/null ) )
+      if [[ "$cur" == ./* || "$cur" == /* ]]; then
+        _filedir "deb"
+      fi
+      return 0
+      ;;
+  esac
+fi
+
+# No command yet. Show what commands we have.
+if [ "$command" = "" ]; then
+  COMPREPLY=( $( compgen -W '${COMMANDS[@]}' -- "$cur" ) )
+fi
+
+return 0
+} &&
+complete -F .pacman pacman
+
+# ex: ts=4 sw=4 et filetype=sh

@@ -1,0 +1,248 @@
+#!/bin/bash
+# Script written by TriVoxel (Caden Mitchell) (https://TriVoxel.page.link/site)
+# This software works as a wrapper for many supported package managers to allow
+# users to manage their packages as if they were using an Arch-based linux distro.
+# 
+# DISCLAIMER: This software is not recommended for professional use. Deb-Pacman
+# does not come with any warranty and I am not responsible for any damage that
+# may be caused by this program. Use at your own risk.
+# TODO: Add bash-completion support for packages and flags --> (TriVoxel)
+# TODO: Add more supported package managers --> (TriVoxel)
+
+### Variables ###
+version="Beta"
+delay="1"
+
+### Packager ###
+if [[ ! -z $2 ]]; then
+  if [[ $2 = "--noconfirm" ]]; then
+    pack=$(echo "$*" | cut -d " " -f3-) # Removes the "--noconfirm" flag from package list
+    noCnf="1"
+  else
+    pack=$(echo "$*" | cut -d " " -f2-) # Keeps whole package list and only cuts the flags
+    noCnf="0"
+  fi
+else
+  pack=$2
+fi
+
+### System Identifier ###
+# Currently-supported systems: Arch, Ubuntu/Debian, and openSUSE
+case $(lsb_release -si) in
+  Ubuntu|Mint|Zorin|Debian) plat="deb";;
+  openSUSE) plat="suse";;
+  Fedora)
+    echo "WARNING: OS Unsupported. Stopping."; exit
+    sleep $delay; plat="weeb";;
+  Gentoo)
+    echo "WANRING: OS Unsupported. Stopping."; exit
+    sleep $delay; plat="gent";;
+  Arch|Manjaro|Antergos|RebornOS)
+    echo "Dejavu??"
+    sleep $delay; pacman $*; exit;;
+  *) plat="deb";;
+esac
+
+### Functions ###
+.noConfirm () {
+  if [[ $noCnf = 1 ]]; then
+    case $plat in
+      deb) echo "-y";;
+      suse) echo "-l";;
+    esac
+  fi
+}
+.checkRoot () {
+  if [ $EUID != 0 ];then
+    echo "error: you cannot perform this operation unless you are root."
+    exit
+  fi
+}
+.sync () {
+  .checkRoot
+  case $plat in
+    deb) sudo apt install $(.noConfirm) $pack;;
+    suse) sudo zypper install $(.noConfirm) $pack;;
+  esac
+}
+.search () {
+  case $plat in
+    deb) apt search $pack;;
+    suse) zypper search $pack;;
+  esac
+}
+.remove () {
+  .checkRoot
+  case $plat in
+    deb) sudo apt remove $(.noConfirm) $pack;;
+    suse) sudo zypper remove $(.noConfirm) $pack;;
+  esac
+}
+.autoRemove () {
+  .checkRoot
+  case $plat in
+    deb) sudo apt autoremove $(.noConfirm) $pack;;
+    suse) sudo zypper remove $pack --clean-deps;;
+  esac
+}
+.update () {
+  .checkRoot
+  case $plat in
+    deb) sudo apt update $(.noConfirm) $pack;;
+    suse) sudo zypper update $(.noConfirm) $pack;;
+  esac
+}
+.upgrade () {
+  .checkRoot
+  case $plat in
+    deb) sudo apt upgrade $(.noConfirm) $pack;;
+    suse) sudo zypper upgrade $(.noConfirm) $pack;;
+  esac
+}
+.version () {
+  echo \
+"
+ .--.                  Deb-Pacman v$version
+/ _.-' .-.  .-.  .-.   Copyright (C) 2020 Caden Mitchell. Project not
+\  '-. '-'  '-'  '-'   officially endorsed by Arch Linux. Deb-Pacman
+ '--'                  comes with no warranty. Use at your own risk.
+                       This program may be freely redistributed under
+                       the terms of the very permissive MIT license.
+"
+}
+.invalidInput () {
+  if [[ -z $1 ]]; then
+    echo "error: no operation specified (use -h for help)"
+  else
+    echo "error: invalid option '$1'"
+  fi
+}
+.devutil () {
+  # Just a small developer artifact for testing stuff like variables or new features.
+  echo "Successful"
+  echo "\$pack --> '$pack'"
+  echo "\$1 --> '$1'"
+  echo "\$2 --> '$2'"
+  echo "\$* --> '$*'"
+  echo "\$noCnf --> $noCnf"
+}
+.help () {
+  case "$pack" in
+    --database) echo \
+"TODO: This is just placeholder text. The '--database' operation is currently unsupported.
+usage:  pacman {-D --database} <options> <package(s)>
+options:
+  -q, --quiet          suppress output of success messages
+  -r, --root <path>    set an alternate installation root
+  -v, --verbose        be verbose
+      --confirm        always ask for confirmation
+      --debug          display debug messages
+      --noconfirm      do not ask for any confirmation";;
+    --files) echo \
+"TODO: This is just placeholder text. The '--files' operation is currently unsupported.
+-l, --list           list the files owned by the queried package
+-q, --quiet          show less information for query and search
+-r, --root <path>    set an alternate installation root
+-v, --verbose        be verbose
+-x, --regex          enable searching using regular expressions
+-y, --refresh        download fresh package databases from the server
+                      (-yy to force a refresh even if up to date)
+    --confirm        always ask for confirmation
+    --debug          display debug messages
+    --noconfirm      do not ask for any confirmation";;
+  --query) echo \
+"TODO: This is just placeholder text. The '--query' operation is currently unsupported.
+usage:  pacman {-Q --query} [options] [package(s)]
+options:
+  -c, --changelog      view the changelog of a package
+  -d, --deps           list packages installed as dependencies [filter]
+  -e, --explicit       list packages explicitly installed [filter]
+  -i, --info           view package information (-ii for backup files)
+  -k, --check          check that package files exist (-kk for file properties)
+  -l, --list           list the files owned by the queried package
+  -o, --owns <file>    query the package that owns <file>
+  -p, --file <package> query a package file instead of the database
+  -q, --quiet          show less information for query and search
+  -s, --search <regex> search locally-installed packages for matching strings
+  -t, --unrequired     list packages not (optionally) required by any
+                        package (-tt to ignore optdepends) [filter]
+  -u, --upgrades       list outdated packages [filter]
+  -v, --verbose        be verbose
+      --confirm        always ask for confirmation
+      --debug          display debug messages
+      --noconfirm      do not ask for any confirmation";;
+    --remove) echo \
+"usage:  pacman {-R --remove} [options] <package(s)>
+options:
+  -c, --cascade        remove packages and all packages that depend on them (TODO: apt purge?)
+  -d, --nodeps         skip dependency version checks (-dd to skip all checks) (TODO)
+  -n, --nosave         remove configuration files (TODO)
+  -s, --recursive      remove unnecessary dependencies (TODO)
+                        (-ss includes explicitly installed dependencies)
+  -u, --unneeded       remove unneeded packages
+  -v, --verbose        be verbose (TODO)
+      --confirm        always ask for confirmation (TODO)
+      --debug          display debug messages (TODO)
+      --noconfirm      do not ask for any confirmation";;
+    --sync) echo \
+"usage:  pacman {-S --sync} [options] [package(s)]
+options:
+  -c, --clean          remove old packages from cache directory (-cc for all) (TODO)
+  -i, --info           view package information (-ii for extended information) (TODO)
+  -l, --list <repo>    view a list of packages in a repo (TODO)
+  -q, --quiet          show less information for query and search (TODO)
+  -s, --search <regex> search remote repositories for matching strings
+  -v, --verbose        be verbose (TODO)
+  -w, --downloadonly   download packages but do not install/upgrade anything (TODO)
+  -y, --refresh        download fresh package databases from the server
+      --confirm        always ask for confirmation (TODO)
+      --debug          display debug messages (TODO)
+      --noconfirm      do not ask for any confirmation";;
+    --deptest) echo \
+"TODO: This is just placeholder text. The '--deptest' operation is currently unsupported.
+usage:  pacman {-T --deptest} [options] [package(s)]
+options:
+  -v, --verbose        be verbose
+      --confirm        always ask for confirmation
+      --debug          display debug messages
+      --noconfirm      do not ask for any confirmation";;
+    --upgrade) echo \
+"usage:  pacman {-U --upgrade} [options] <file(s)>
+options:
+  -p, --print          print the targets instead of performing the operation (TODO)
+  -r, --root <path>    set an alternate installation root (TODO)
+  -v, --verbose        be verbose (TODO)
+      --confirm        always ask for confirmation (TODO)
+      --debug          display debug messages (TODO)
+      --noconfirm      do not ask for any confirmation";;
+    *) echo \
+"usage:  pacman <operation> [...]
+operations:
+    pacman {-h --help}
+    pacman {-V --version}
+    pacman {-D --database} <options> <package(s)> (TODO)
+    pacman {-F --files}    [options] [package(s)] (TODO)
+    pacman {-Q --query}    [options] [package(s)] (TODO)
+    pacman {-R --remove}   [options] <package(s)>
+    pacman {-S --sync}     [options] [package(s)]
+    pacman {-T --deptest}  [options] [package(s)] (TODO)
+    pacman {-U --upgrade}  [options] <file(s)>
+
+use 'pacman {-h --help}' with an operation for available options";;
+  esac
+}
+
+### Logic ###
+case "$1" in
+  -S|--sync) .sync; exit;;
+  -Sy|-Syyu) .update; exit;;
+  -Syu|Syyu|Syyuu) .update; .upgrade; exit;;
+  -Ss|--search) .search; exit;;
+  -U|--upgrade) .upgrade; exit;;
+  -R|--remove) .remove; exit;;
+  -Ru|-Rns|-Qdtcr|-Qdtc) .autoRemove; exit;;
+  -h|--help) .help; exit;;
+  -V|--version) .version; exit;;
+  -T|-t|--test|--devutil) .devutil; exit;;
+  *) .invalidInput; exit;;
+esac
