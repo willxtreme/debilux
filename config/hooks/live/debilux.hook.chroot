@@ -29,4 +29,4 @@ apt install -y linux-xanmod-edge
 fc-cache -f -v
 
 #set plymouth default theme to moonlight
-plymouth-set-default-theme -R moonlight
+plymouth-set-default-theme -R hellonavi
