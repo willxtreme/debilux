@@ -57,6 +57,7 @@ keys = [
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset -q Master,0 5%-")),
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset -q Master,0 5%+")),
     Key([], "XF86AudioMute", lazy.spawn("amixer -q set Master toggle")),
+    Key([], "Print", lazy.spawn("scrot")),
 ]
 
 # Groups
