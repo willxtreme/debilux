@@ -4,3 +4,4 @@ picom &
 lxpolkit &
 numlockx &
 package-update-indicator &
+cbatticon &
