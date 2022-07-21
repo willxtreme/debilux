@@ -5,3 +5,4 @@ lxpolkit &
 numlockx &
 package-update-indicator &
 cbatticon &
+parcellite &
