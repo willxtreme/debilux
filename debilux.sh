@@ -4,18 +4,18 @@ sudo lb clean
 lb config \
 --apt-recommends 'true' \
 --archive-areas 'main contrib non-free' \
---bootappend-live 'boot=live components quiet splash loglevel=0 username=apprentice' \
---bootappend-live-failsafe 'boot=live components noapic noapm nodma nomce nomodeset nosmp nosplash username=apprentice' \
+--bootappend-live 'boot=live components quiet splash loglevel=0 username=apprentice hostname=debilux' \
+--bootappend-live-failsafe 'boot=live components noapic noapm nodma nomce nomodeset nosmp nosplash username=apprentice hostname=debilux' \
 --chroot-squashfs-compression-type 'zstd' \
 --clean \
 --color \
 --debian-installer 'none' \
---distribution 'bullseye' \
+--distribution 'testing' \
 --interactive 'false' \
 --memtest 'none' \
---security 'true' \
+--security 'false' \
 --system 'live' \
---updates 'true' \
+--updates 'false' \
 --win32-loader 'false' \
 --zsync 'false'
 

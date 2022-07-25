@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# Writes the final sources.list file
+#
+
+CHROOT=$(mount | grep proc | grep calamares | awk '{print $3}' | sed -e "s#/proc##g")
+RELEASE="testing"
+
+cat << EOF > $CHROOT/etc/apt/sources.list
+# See https://wiki.debian.org/SourcesList for more information.
+deb http://deb.debian.org/debian $RELEASE main contrib non-free
+EOF
+
+exit 0
