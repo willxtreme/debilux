@@ -15,6 +15,7 @@ volume = "alacritty -e alsamixer"
 filemanager = "pcmanfm"
 editor = "mousepad"
 mediaplayer = "vlc"
+upgrade = "alacritty --hold -e sudo pacman -Syu"
 
 # Colors
 bg = "#1E1D2F"
@@ -30,6 +31,7 @@ yellow = "#FAE3B0"
 keys = [
     Key([mod], "Return", lazy.spawn(terminal)),
     Key([mod], "w", lazy.spawn(browser)),
+    Key([mod], "u", lazy.spawn(upgrade)),
     Key([mod], "r", lazy.spawncmd()),
     Key([mod], "q", lazy.spawn(forcequit)),
     Key([mod], "v", lazy.spawn(volume)),
