@@ -15,7 +15,7 @@ volume = "alacritty -e alsamixer"
 filemanager = "pcmanfm"
 editor = "mousepad"
 mediaplayer = "vlc"
-upgrade = "alacritty --hold -e sudo pacman -Syu"
+upgrade = "alacritty --hold -e sudo debilux_upgrade"
 
 # Colors
 bg = "#1E1D2F"
