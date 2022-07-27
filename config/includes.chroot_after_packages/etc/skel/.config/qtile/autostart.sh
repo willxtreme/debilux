@@ -6,3 +6,5 @@ numlockx &
 package-update-indicator &
 cbatticon &
 parcellite &
+blueman-applet &
+
