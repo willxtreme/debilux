@@ -12,6 +12,8 @@ lb config \
 --debian-installer 'none' \
 --distribution 'testing' \
 --interactive 'false' \
+--linux-flavours 'amd64' \
+--linux-packages 'linux-image-5.18.0-14.2-liquorix linux-headers-5.18.0-14.2-liquorix' \
 --memtest 'none' \
 --security 'false' \
 --system 'live' \

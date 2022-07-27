@@ -20,10 +20,26 @@ apt update
 apt upgrade -y
 apt install -y brave-browser
 
-#install xanmod
-apt update
-apt upgrade -y
-apt install -y linux-xanmod-edge
+# Install debian repo
+mkdir -p /etc/apt/{sources.list.d,trusted.gpg.d}
+curl -o /etc/apt/trusted.gpg.d/liquorix-keyring.gpg 'https://liquorix.net/liquorix-keyring.gpg'
+echo ""
+echo "[INFO ] Liquorix keyring added to /etc/apt/trusted.gpg.d/liquorix-keyring.gpg"
+echo ""
+
+repo_file="/etc/apt/sources.list.d/liquorix.list"
+repo_code="$(lsb_release -cs)"
+echo "deb https://liquorix.net/debian $repo_code main"      > $repo_file
+echo "deb-src https://liquorix.net/debian $repo_code main" >> $repo_file
+
+apt-get update -y
+if [ $ARCH = "x64" ]; then
+	apt install -y linux-image-liquorix-amd64 linux-headers-liquorix-amd64
+fi
+
+echo ""
+echo "[INFO] Liquorix repository added successfully to $repo_file"
+echo ""
 
 # update cache for JetBrains font
 fc-cache -f -v
