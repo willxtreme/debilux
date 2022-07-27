@@ -116,7 +116,7 @@ screens = [
                     foreground=fg,
                     padding=0,
                     fontsize=20,
-                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("xfce4-appfinder")}
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("rofi -show drun")}
                 ),
                 widget.Sep(
                     foreground=gray,
